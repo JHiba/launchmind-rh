@@ -40,8 +40,14 @@ import os
 from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+from pathlib import Path
 
+env_path = Path(".env")
+print("ENV FILE PATH:", env_path.resolve())
+
+load_dotenv(dotenv_path=env_path, override=True)
+
+print("GROQ KEY LOADED:", repr(os.getenv("GROQ_API_KEY")))
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def call_llm(prompt):

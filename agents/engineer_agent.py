@@ -6,6 +6,8 @@ from llm import call_llm
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO = "JHiba/launchmind-rh"
+print("GITHUB TOKEN LOADED:", repr(GITHUB_TOKEN))
+print("REPO:", REPO)
 
 HEADERS = {
     "Authorization": f"token {GITHUB_TOKEN}",

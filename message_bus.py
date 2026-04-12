@@ -4,8 +4,10 @@ from datetime import datetime
 message_bus = {
     "ceo": [],
     "product": [],
-    "engineer": [] 
+    "engineer": [],
+    "marketing": []
 }
+
 
 def create_message(from_agent, to_agent, message_type, payload, parent_id=None):
     return {
@@ -15,13 +17,17 @@ def create_message(from_agent, to_agent, message_type, payload, parent_id=None):
         "message_type": message_type,
         "payload": payload,
         "timestamp": datetime.utcnow().isoformat(),
-        "parent_message_id": parent_id
+        "parent_id": parent_id
     }
 
+
 def send_message(message):
-    message_bus[message["to_agent"]].append(message)
+    receiver = message["to_agent"]
+    if receiver in message_bus:
+        message_bus[receiver].append(message)
+
 
 def get_messages(agent_name):
-    msgs = message_bus[agent_name][:]
+    messages = message_bus.get(agent_name, [])
     message_bus[agent_name] = []
-    return msgs
+    return messages
